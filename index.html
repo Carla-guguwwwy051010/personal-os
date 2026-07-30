@@ -1344,12 +1344,10 @@
           <nav class="flex-1 flex flex-col gap-1">
             ${items.map(item => {
               const active = state.route === item.path || state.route.startsWith(item.path + '/');
-              const phaseLabel = item.phase === 2 ? '<span class="ml-auto text-xs text-text-muted">Phase 2</span>' : '';
               return `
                 <button onclick="navigate('${item.path}')" class="flex items-center gap-3 px-3 py-2.5 rounded-2xl transition text-left ${active ? 'bg-bunny-pink/15 text-text-primary font-medium' : 'text-text-secondary hover:bg-white'}">
                   ${icon(item.icon, 18)}
                   <span class="flex-1">${item.label}</span>
-                  ${phaseLabel}
                 </button>
               `;
             }).join('')}
@@ -1386,16 +1384,16 @@
     }
 
     function tabbar() {
-      // 8 Tab 常驻：Home + 7 大模块，不再用 More 弹层
+      // 8 Tab 常驻：Home + 7 大模块，顺序与桌面侧边栏一致
       const items = [
-        { path: '/', icon: 'home', label: t('nav.home'), phase: 1 },
-        { path: '/journal', icon: 'heart', label: t('nav.journal'), phase: 1 },
-        { path: '/tutoring', icon: 'graduation', label: t('nav.tutoring'), phase: 1 },
-        { path: '/creation', icon: 'lightbulb', label: t('nav.creation'), phase: 1 },
-        { path: '/pm', icon: 'briefcase', label: t('nav.pm'), phase: 2 },
-        { path: '/learning', icon: 'book', label: t('nav.learning'), phase: 2 },
-        { path: '/experience', icon: 'coffee', label: t('nav.experience'), phase: 2 },
-        { path: '/health', icon: 'activity', label: t('nav.health'), phase: 2 },
+        { path: '/', icon: 'home', label: t('nav.home') },
+        { path: '/pm', icon: 'briefcase', label: t('nav.pm') },
+        { path: '/learning', icon: 'book', label: t('nav.learning') },
+        { path: '/creation', icon: 'lightbulb', label: t('nav.creation') },
+        { path: '/journal', icon: 'heart', label: t('nav.journal') },
+        { path: '/experience', icon: 'coffee', label: t('nav.experience') },
+        { path: '/tutoring', icon: 'graduation', label: t('nav.tutoring') },
+        { path: '/health', icon: 'activity', label: t('nav.health') },
       ];
       return `
         <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-30 px-2 pb-3 pt-2">
@@ -1404,11 +1402,9 @@
               const active = item.path === '/'
                 ? state.route === '/' || state.route === ''
                 : (state.route === item.path || state.route.startsWith(item.path + '/'));
-              const phaseHint = item.phase === 2 ? '<span class="absolute top-0.5 right-1.5 w-1 h-1 rounded-full bg-bunny-pink/50"></span>' : '';
               return `
                 <button onclick="navigate('${item.path}')" class="relative flex flex-col items-center justify-center gap-0.5 px-1 py-1 rounded-2xl min-w-[44px] flex-1 transition ${active ? 'text-bunny-pink bg-bunny-pink/10' : 'text-text-muted hover:bg-white'}">
                   ${icon(item.icon, 20)} <span class="text-[10px] leading-tight text-center whitespace-nowrap">${item.label}</span>
-                  ${phaseHint}
                 </button>
               `;
             }).join('')}
